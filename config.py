@@ -1,4 +1,4 @@
-"""LocalFlow configuration.
+"""VoicePaste configuration.
 
 Edit these constants to change models, devices, or the push-to-talk key.
 """
@@ -27,4 +27,3 @@ OLLAMA_TIMEOUT_SECONDS = 120
 
 # A short pause helps Windows make clipboard content available before Ctrl+V.
 PASTE_DELAY_SECONDS = 0.08
-

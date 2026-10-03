@@ -1,7 +1,7 @@
-# LocalFlow
+# VoicePaste
 
-LocalFlow is a minimal, fully local push-to-talk dictation tool for Windows 11.
-Hold **F8**, speak, and release F8. LocalFlow transcribes with faster-whisper,
+VoicePaste is a minimal, fully local push-to-talk dictation tool for Windows 11.
+Hold **F8**, speak, and release F8. VoicePaste transcribes with faster-whisper,
 conservatively cleans the text with Ollama, copies it to the clipboard, and sends
 Ctrl+V to the application that already has focus. It never presses Enter.
 
@@ -15,7 +15,7 @@ Ctrl+V to the application that already has focus. It never presses Enter.
 
 ## Setup (Windows PowerShell)
 
-Open PowerShell in the LocalFlow repository, then create and activate a virtual
+Open PowerShell in the VoicePaste repository, then create and activate a virtual
 environment:
 
 ```powershell
@@ -48,13 +48,13 @@ PowerShell window:
 ollama serve
 ```
 
-Start LocalFlow from the activated virtual environment:
+Start VoicePaste from the activated virtual environment:
 
 ```powershell
 python main.py
 ```
 
-Wait for `LocalFlow ready`. Put the cursor in any normal Windows text field,
+Wait for `VoicePaste ready`. Put the cursor in any normal Windows text field,
 hold F8 while speaking, then release it. Press Escape while recording to cancel.
 The console prints the raw and cleaned text plus timing and paste status.
 
@@ -74,7 +74,7 @@ By default Hugging Face stores downloaded models in the user cache at
 `%USERPROFILE%\.cache\huggingface\hub`. Once downloaded, transcription and
 cleanup run locally and do not require cloud inference.
 
-LocalFlow automatically tries CUDA when CTranslate2 detects a compatible NVIDIA
+VoicePaste automatically tries CUDA when CTranslate2 detects a compatible NVIDIA
 GPU; otherwise it uses CPU INT8. If automatic CUDA initialization fails, it
 retries on CPU. Model, device, hotkey, audio device, Ollama URL, and timing
 settings are intentionally kept in `config.py`. Custom terminology is loaded

@@ -1,4 +1,4 @@
-"""LocalFlow: hold a global key, dictate, release, and paste."""
+"""VoicePaste: hold a global key, dictate, release, and paste."""
 
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ def parse_key(name: str):
         ) from exc
 
 
-class LocalFlow:
+class VoicePaste:
     def __init__(self) -> None:
         vocabulary = load_vocabulary()
         self.hotkey = parse_key(config.HOTKEY)
@@ -98,7 +98,7 @@ class LocalFlow:
         worker = threading.Thread(
             target=self._process_audio,
             args=(audio,),
-            name="localflow-processing",
+            name="voicepaste-processing",
             daemon=True,
         )
         worker.start()
@@ -166,7 +166,7 @@ class LocalFlow:
                 self._processing = False
 
     def run(self) -> None:
-        print(f"LocalFlow ready. Hold {config.HOTKEY.upper()} to dictate; Esc cancels.")
+        print(f"VoicePaste ready. Hold {config.HOTKEY.upper()} to dictate; Esc cancels.")
         try:
             with keyboard.Listener(
                 on_press=self.on_press,
@@ -179,7 +179,7 @@ class LocalFlow:
 
 
 def main() -> None:
-    LocalFlow().run()
+    VoicePaste().run()
 
 
 if __name__ == "__main__":
