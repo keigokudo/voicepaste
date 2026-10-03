@@ -1,0 +1,15 @@
+Codex
+ChatGPT
+React
+Next.js
+TypeScript
+JavaScript
+Node.js
+Storybook
+Playwright
+Figma
+PhraseRecall
+WordPress
+GitHub
+Notion
+
