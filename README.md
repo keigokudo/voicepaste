@@ -61,7 +61,7 @@ that Ollama is available and download the cleanup model:
 
 ```powershell
 ollama --version
-ollama pull qwen3:4b
+ollama pull qwen3:1.7b
 ```
 
 The Ollama Windows application normally starts its local server automatically.
@@ -110,8 +110,8 @@ To stop a hidden instance, use Task Manager to end its `pythonw.exe` process.
 ## First startup and models
 
 The initial downloads are substantial. The faster-whisper `large-v3-turbo`
-model is approximately 1.6 GB, and the Ollama `qwen3:4b` model is approximately
-2.5 GB. Python packages, Ollama itself, model metadata, and download caches need
+model is approximately 1.6 GB, and the Ollama `qwen3:1.7b` model is approximately
+1.4 GB. Python packages, Ollama itself, model metadata, and download caches need
 additional space. Allow at least 8 GB of free disk space before setup; the exact
 usage varies by package and model versions.
 

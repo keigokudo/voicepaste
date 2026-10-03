@@ -17,13 +17,13 @@ WHISPER_MODEL = "large-v3-turbo"
 WHISPER_DEVICE = "auto"  # "auto", "cuda", or "cpu"
 WHISPER_CUDA_COMPUTE_TYPE = "float16"
 WHISPER_CPU_COMPUTE_TYPE = "int8"
-WHISPER_BEAM_SIZE = 5
+WHISPER_BEAM_SIZE = 1
 WHISPER_VAD_FILTER = True
 
 # Ollama settings.
 OLLAMA_URL = "http://127.0.0.1:11434/api/chat"
-OLLAMA_MODEL = "qwen3:4b"
-OLLAMA_TIMEOUT_SECONDS = 120
+OLLAMA_MODEL = "qwen3:1.7b"
+OLLAMA_TIMEOUT_SECONDS = 20
 
 # A short pause helps Windows make clipboard content available before Ctrl+V.
 PASTE_DELAY_SECONDS = 0.08
