@@ -80,7 +80,8 @@ python main.py
 
 Wait for `VoicePaste ready`. Put the cursor in any normal Windows text field,
 hold F8 while speaking, then release it. Press Escape while recording to cancel.
-The console prints the raw and cleaned text plus timing and paste status.
+Press Ctrl+Shift+Q to stop VoicePaste cleanly. The console prints the raw and
+cleaned text plus timing and paste status.
 
 ## Notepad smoke test
 
@@ -105,7 +106,8 @@ After console-mode operation is confirmed, start it without a visible console:
 Start-Process -FilePath ".\.venv\Scripts\pythonw.exe" -ArgumentList "main.py" -WorkingDirectory $PWD
 ```
 
-To stop a hidden instance, use Task Manager to end its `pythonw.exe` process.
+To stop a hidden instance, press Ctrl+Shift+Q. If its global keyboard listener
+is not responding, use Task Manager to end its `pythonw.exe` process.
 
 ## First startup and models
 
@@ -137,6 +139,7 @@ from `vocabulary.txt` at startup and supplied to both Whisper and Ollama.
 - Text is copied before Ctrl+V is sent. If auto-paste fails, the text remains in
   the clipboard for a manual paste.
 - While one recording is being processed, additional F8 presses are ignored.
+- Ctrl+Shift+Q stops an active recording, closes the keyboard listener, and exits.
 
 If the microphone is wrong, set `AUDIO_DEVICE` in `config.py`. To inspect Windows
 input device names and indices from the activated environment, run:

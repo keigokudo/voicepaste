@@ -16,6 +16,10 @@ from transcriber import Transcriber
 
 
 BASE_DIR = Path(__file__).resolve().parent
+CTRL_KEYS = frozenset((keyboard.Key.ctrl, keyboard.Key.ctrl_l, keyboard.Key.ctrl_r))
+SHIFT_KEYS = frozenset(
+    (keyboard.Key.shift, keyboard.Key.shift_l, keyboard.Key.shift_r)
+)
 
 
 def load_vocabulary() -> list[str]:
@@ -55,8 +59,25 @@ class VoicePaste:
         self._state_lock = threading.Lock()
         self._recording = False
         self._processing = False
+        self._pressed_modifiers: set[str] = set()
 
-    def on_press(self, key) -> None:
+    def on_press(self, key) -> bool | None:
+        if key in CTRL_KEYS:
+            self._pressed_modifiers.add("ctrl")
+        if key in SHIFT_KEYS:
+            self._pressed_modifiers.add("shift")
+
+        character = getattr(key, "char", None)
+        is_q_key = (
+            character is not None and character.lower() == "q"
+        ) or getattr(key, "vk", None) == ord("Q")
+        if (
+            is_q_key
+            and {"ctrl", "shift"}.issubset(self._pressed_modifiers)
+        ):
+            self._cancel_recording()
+            return False
+
         if key == keyboard.Key.esc:
             self._cancel_recording()
             return
@@ -77,6 +98,11 @@ class VoicePaste:
         print("Recording started.")
 
     def on_release(self, key) -> None:
+        if key in CTRL_KEYS:
+            self._pressed_modifiers.discard("ctrl")
+        if key in SHIFT_KEYS:
+            self._pressed_modifiers.discard("shift")
+
         if key != self.hotkey:
             return
         with self._state_lock:
@@ -166,16 +192,23 @@ class VoicePaste:
                 self._processing = False
 
     def run(self) -> None:
-        print(f"VoicePaste ready. Hold {config.HOTKEY.upper()} to dictate; Esc cancels.")
+        print(
+            f"VoicePaste ready. Hold {config.HOTKEY.upper()} to dictate; "
+            "Esc cancels; Ctrl+Shift+Q quits."
+        )
+        listener = keyboard.Listener(
+            on_press=self.on_press,
+            on_release=self.on_release,
+        )
         try:
-            with keyboard.Listener(
-                on_press=self.on_press,
-                on_release=self.on_release,
-            ) as listener:
+            with listener:
                 listener.join()
+        except KeyboardInterrupt:
+            listener.stop()
         finally:
             if self.recorder.is_recording:
-                self.recorder.cancel()
+                self._cancel_recording()
+            print("VoicePaste stopped.")
 
 
 def main() -> None:
