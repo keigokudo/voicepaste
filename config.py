@@ -24,6 +24,7 @@ WHISPER_VAD_FILTER = True
 OLLAMA_URL = "http://127.0.0.1:11434/api/chat"
 OLLAMA_MODEL = "qwen3:1.7b"
 OLLAMA_TIMEOUT_SECONDS = 20
+MIN_CLEANED_LENGTH_RATIO = 0.70
 
 # A short pause helps Windows make clipboard content available before Ctrl+V.
 PASTE_DELAY_SECONDS = 0.08
