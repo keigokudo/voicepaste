@@ -111,13 +111,13 @@ is not responding, use Task Manager to end its `pythonw.exe` process.
 
 ## First startup and models
 
-The initial downloads are substantial. The faster-whisper `large-v3-turbo`
-model is approximately 1.6 GB, and the Ollama `qwen3:1.7b` model is approximately
+The initial downloads are substantial. By default, VoicePaste uses the
+faster-whisper `small` model. The Ollama `qwen3:1.7b` model is approximately
 1.4 GB. Python packages, Ollama itself, model metadata, and download caches need
-additional space. Allow at least 8 GB of free disk space before setup; the exact
+additional space. Allow several GB of free disk space before setup; the exact
 usage varies by package and model versions.
 
-On its first run, faster-whisper downloads `large-v3-turbo` from Hugging Face,
+On its first run, faster-whisper downloads `small` from Hugging Face,
 so startup can take substantially longer and requires an internet connection.
 The console remains at the model-loading message during this download. By
 default Hugging Face stores the model in the user cache at
@@ -129,7 +129,9 @@ VoicePaste automatically tries CUDA when CTranslate2 detects a compatible NVIDIA
 GPU; otherwise it uses CPU INT8. If automatic CUDA initialization fails, it
 retries on CPU. Model, device, hotkey, audio device, Ollama URL, and timing
 settings are intentionally kept in `config.py`. Custom terminology is loaded
-from `vocabulary.txt` at startup and supplied to both Whisper and Ollama.
+from `vocabulary.txt` at startup and supplied to both Whisper and Ollama. Change
+`WHISPER_MODEL` in `config.py` to trade transcription accuracy against latency;
+support for other faster-whisper models remains available.
 
 ## Reliability behavior
 

@@ -13,7 +13,7 @@ CHANNELS = 1
 AUDIO_DEVICE = None  # None uses the Windows default input device.
 
 # faster-whisper settings. "auto" tries CUDA first, then CPU INT8.
-WHISPER_MODEL = "large-v3-turbo"
+WHISPER_MODEL = "small"
 WHISPER_DEVICE = "auto"  # "auto", "cuda", or "cpu"
 WHISPER_CUDA_COMPUTE_TYPE = "float16"
 WHISPER_CPU_COMPUTE_TYPE = "int8"

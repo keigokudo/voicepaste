@@ -29,10 +29,7 @@ def _automatic_device() -> tuple[str, str]:
 
 class Transcriber:
     def __init__(self, vocabulary: list[str]) -> None:
-        self.initial_prompt = (
-            "The speaker may use Japanese and English together. Preserve the detected "
-            "language and spell these terms exactly when spoken: " + ", ".join(vocabulary)
-        )
+        self.initial_prompt = ", ".join(vocabulary)
 
         if config.WHISPER_DEVICE == "auto":
             device, compute_type = _automatic_device()
@@ -70,11 +67,12 @@ class Transcriber:
     def transcribe(self, audio: np.ndarray) -> Transcription:
         segments, info = self.model.transcribe(
             audio,
+            task="transcribe",
             beam_size=config.WHISPER_BEAM_SIZE,
             vad_filter=config.WHISPER_VAD_FILTER,
             initial_prompt=self.initial_prompt,
             language=None,
-            condition_on_previous_text=True,
+            condition_on_previous_text=False,
         )
         text = "".join(segment.text for segment in segments).strip()
         return Transcription(
@@ -82,4 +80,3 @@ class Transcriber:
             language=getattr(info, "language", None),
             language_probability=getattr(info, "language_probability", None),
         )
-
